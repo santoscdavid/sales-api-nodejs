@@ -9,7 +9,6 @@ class UsersRepository extends Repository<User> {
         name,
       },
     });
-
     return user;
   }
   public async findById(id: string): Promise<User | undefined> {
@@ -18,7 +17,6 @@ class UsersRepository extends Repository<User> {
         id,
       },
     });
-
     return user;
   }
 
@@ -28,7 +26,6 @@ class UsersRepository extends Repository<User> {
         email,
       },
     });
-
     return user;
   }
 }
