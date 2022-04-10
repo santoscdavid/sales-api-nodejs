@@ -1,27 +1,14 @@
 import { Request, Response } from 'express';
-import CreateUserService from '../services/CreateUserService';
-import ListUserService from '../services/ListUserService';
+import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
 
 export default class UsersController {
-  public async index(request: Request, response: Response): Promise<Response> {
-    const listUser = new ListUserService();
+  public async update(request: Request, response: Response): Promise<Response> {
+    const updateAvatar = new UpdateUserAvatarService();
 
-    const users = await listUser.execute();
-
-    return response.json(users);
-  }
-
-  public async create(request: Request, response: Response): Promise<Response> {
-    const { name, email, password } = request.body;
-
-    const createUser = new CreateUserService();
-
-    const user = await createUser.execute({
-      name,
-      email,
-      password,
+    const user = updateAvatar.execute({
+      user_id: request.user.id,
+      avatarFileName: request.file?.filename as string,
     });
-
     return response.json(user);
   }
 }
