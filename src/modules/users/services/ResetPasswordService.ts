@@ -21,12 +21,14 @@ class ResetPasswordService {
     const user = await usersRepository.findById(userToken.user_id);
     if (!user) throw new AppError('User does not exists');
 
-    const tokenCreatedAt = userToken.createdAt;
+    const tokenCreatedAt = userToken.created_at;
     const compareDate = addHours(tokenCreatedAt, 2);
 
     if (isAfter(Date.now(), compareDate)) throw new AppError('Token expired');
 
     user.password = await hash(password, 8);
+
+    await usersRepository.save(user);
   }
 }
 
