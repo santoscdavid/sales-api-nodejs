@@ -7,14 +7,12 @@ interface IProduct {
   price: number;
   quantity: number;
 }
-
 interface IRequest {
   customer: Customer;
   products: IProduct[];
 }
-
 @EntityRepository(Order)
-class OrdersRepository extends Repository<Order> {
+export class OrdersRepository extends Repository<Order> {
   public async findById(id: string): Promise<Order | undefined> {
     const order = this.findOne(id, {
       relations: ['order_products', 'customer'],
