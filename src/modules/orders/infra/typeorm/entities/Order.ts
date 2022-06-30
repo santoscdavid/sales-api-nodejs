@@ -10,9 +10,10 @@ import {
 
 import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import OrdersProducts from './OrdersProducts';
+import { IOrder } from '@modules/orders/domain/models/IOrder';
 
 @Entity('orders')
-class Order {
+class Order implements IOrder {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -20,7 +21,7 @@ class Order {
   @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 
-  @OneToMany(() => OrdersProducts, x => x.order, {
+  @OneToMany(() => OrdersProducts, order_products => order_products.order, {
     cascade: true,
   })
   order_products: OrdersProducts[];
