@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Exclude, Expose } from 'class-transformer';
+import { IUser } from '@modules/users/domain/models/IUser';
 
 @Entity('users')
-class User {
+class User implements IUser {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -21,13 +23,13 @@ class User {
   @Exclude()
   password: string;
 
-  @Column({ nullable: true })
+  @Column()
   avatar: string;
 
   @CreateDateColumn()
   created_at: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updated_at: Date;
 
   @Expose({ name: 'avatar_url' })
@@ -36,7 +38,8 @@ class User {
       return null;
     }
 
-    return `${process.env.APP_API_URL}/files/${this.avatar}}`;
+    return `${process.env.APP_API_URL}/files/${this.avatar}`;
   }
 }
+
 export default User;
