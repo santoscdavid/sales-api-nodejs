@@ -9,13 +9,17 @@ export type SearchParams = {
 };
 
 export interface ICustomersRepository {
-  findAll({ page, skip, take }: SearchParams): Promise<ICustomerPaginate>;
+  findAll({
+    page,
+    skip,
+    take,
+  }: SearchParams): Promise<ICustomerPaginate | null>;
 
-  findByName(name: string): Promise<ICustomer | undefined>;
+  findByName(name: string): Promise<ICustomer | null>;
 
-  findById(id: string): Promise<ICustomer | undefined>;
+  findById(id: string): Promise<ICustomer | null>;
 
-  findByEmail(email: string): Promise<ICustomer | undefined>;
+  findByEmail(email: string): Promise<ICustomer | null>;
 
   create(data: ICreateCustomer): Promise<ICustomer>;
 
